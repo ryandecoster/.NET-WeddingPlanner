@@ -1,0 +1,31 @@
+table{
+    border-collapse: separate;
+    border-spacing: 2px;
+    padding: 5px;
+}
+span {
+    color: red;
+    font-size: 14px;
+}
+body{
+    padding: 0px;
+}
+.navbar-nav .nav-link{
+    padding-right: 40px;
+}
+.navbar-nav{
+    flex-direction: row;
+}
+.main_content{
+    display: inline-block;
+}
+.log, .reg{
+    display: inline-block;
+    vertical-align: top;
+}
+h3{
+    color: white;
+}
+thead{
+    font-weight: bold;
+}

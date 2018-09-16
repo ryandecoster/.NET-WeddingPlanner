@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/style.css" />
+    <title>Wedding Planner</title>
+    @using WeddingPlanner.Models
+    @model DashboardModel
+    @using System.Linq
+</head>
+<body>
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <span class="navbar-brand">Wedding Planner</span>
+        <h3>Welcome to the Wedding Planner!</h3>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class='nav-link' href="/logout">Logout</a>
+            </li>
+        </ul>
+    </nav><br>
+    <a style="float: right;" class="btn btn-primary" href="/NewWedding">New Wedding</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Wedding</td>
+                <td>Date</td>
+                <td>Guests</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var wedding in ViewBag.Weddings) {
+            <tr>
+                <td><a href="Wedding/@wedding.Id">@wedding.Groom and @wedding.Bride</a></td>
+                <td>@wedding.Date.ToString("MMMM dd, yyyy")</td>
+                <td>@wedding.Guests.Count</td>
+                @if (@ViewBag.UserId == @wedding.UserId) {
+                    <td><a href="Delete/@wedding.Id">Delete</a></td>
+                }
+                else {
+                    int Count = 0;
+                    @foreach(var guest in @wedding.Guests) {
+                        @if(@guest.InvitedUser == @ViewBag.User) {
+                            Count = 1;
+                        }
+                    }
+                    if(Count == 1) {
+                        <td><a href="Undo/@wedding.Id">Un-RSVP</a></td>
+                    } 
+                    else {
+                        <td><a href="RSVP/@wedding.Id">RSVP</a></td> 
+                    }
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+    
+</body>
+</html>
